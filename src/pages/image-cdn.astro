@@ -35,7 +35,7 @@ import corgi from '../assets/corgi.jpg';
 const originalVsCdnSnippet = `
 ## Original vs. optimized image: can you tell the difference?
 
-In the code below, a regular \`<img>\` tag is used in both cases for a framework-agnostic example. 
+In the code below, a regular \`<img>\` tag is used in both cases for a framework-agnostic example.
 Note that aside from Astro's \`Image\` or rolling your own \`<img>\` tags, you can also use the excellent [unpic-img](https://unpic.pics/) package.
 
 ~~~jsx
@@ -43,10 +43,10 @@ Note that aside from Astro's \`Image\` or rolling your own \`<img>\` tags, you c
 <img src="/images/corgi.jpg" alt="Corgi" />
 
 // ==> On the right, explicitly using Netlify Image CDN endpoint for a responsive image
-<img 
+<img
   srcSet="${sampleImageSrcSet}"
-  sizes="${sizes}" 
-  alt="Corgi" 
+  sizes="${sizes}"
+  alt="Corgi"
 />
 ~~~
 `;
@@ -55,14 +55,13 @@ const devModeWarning = `
 In local development, optimization is performed locally without automatic format
 detection, so format is set to WebP.
 `;
-
 ---
 
 <Layout title="Image CDN">
     <div class="flex flex-col gap-12 sm:gap-16">
         <section class="space-y-8">
             <ContextAlert
-                addedChecksFunction={(ctx) => {
+                addedChecksFunction={(ctx: string) => {
                     return ctx === 'dev' ? devModeWarning : null;
                 }}
             />
@@ -119,9 +118,9 @@ detection, so format is set to WebP.
     function showImageSize(image: HTMLImageElement) {
         const imageEntry = window?.performance?.getEntriesByName(image.currentSrc)?.[0] as PerformanceResourceTiming;
         if (imageEntry && imageEntry.encodedBodySize) {
-            const imageOverlay = image.previousElementSibling;
-            imageOverlay.classList.remove('hidden');
-            imageOverlay.textContent = `Size: ${Math.ceil(imageEntry.encodedBodySize / 1024)}KB`;
+            const imageOverlay = image.previousElementSibling as HTMLElement;
+            imageOverlay?.classList.remove('hidden');
+            imageOverlay && (imageOverlay.textContent = `Size: ${Math.ceil(imageEntry.encodedBodySize / 1024)}KB`);
         }
     }
 </script>

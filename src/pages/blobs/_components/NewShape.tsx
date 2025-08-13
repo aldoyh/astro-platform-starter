@@ -5,7 +5,7 @@ import { generateBlob, uploadDisabled } from '../../../utils';
 import type { BlobProps } from '../../../types.ts';
 
 interface Props {
-    setLastMutationTime?: Dispatch<SetStateAction<number>>;
+    setLastMutationTime?: Dispatch<SetStateAction<number | null>>;
 }
 
 export default function NewShape(props: Props) {
@@ -22,14 +22,14 @@ export default function NewShape(props: Props) {
         const response = await fetch('/api/blobs', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(blobData.parameters)
+            body: JSON.stringify(blobData?.parameters)
         });
         const data = await response.json();
         if (data.message) {
             console.log(data.message);
         }
         setWasUploaded(true);
-        setLastMutationTime(Date.now());
+        setLastMutationTime?.(Date.now());
     };
 
     useEffect(() => {

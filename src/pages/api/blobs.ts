@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request }) => {
     );
 };
 
-export const GET: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async () => {
     try {
         const blobStore = getStore({ name: 'shapes', consistency: 'strong' });
         const data = await blobStore.list();

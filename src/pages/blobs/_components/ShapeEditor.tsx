@@ -3,7 +3,7 @@ import NewShape from './NewShape.tsx';
 import StoredShapes from './StoredShapes.tsx';
 
 export default function ShapeEditor() {
-    const [lastMutationTime, setLastMutationTime] = useState<number>(null);
+    const [lastMutationTime, setLastMutationTime] = useState<number | null>(null);
 
     return (
         <div className="flex flex-col gap-8 md:flex-row">
@@ -11,7 +11,7 @@ export default function ShapeEditor() {
                 <NewShape setLastMutationTime={setLastMutationTime} />
             </div>
             <div className="flex-1">
-                <StoredShapes lastMutationTime={lastMutationTime} />
+                <StoredShapes lastMutationTime={lastMutationTime || 0} />
             </div>
         </div>
     );
